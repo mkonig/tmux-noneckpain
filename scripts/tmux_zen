@@ -1,0 +1,31 @@
+%if #{!=:#{session_name},spotify}
+    %if #{==:#{hook},after-new-window}
+        split-window -h -b ''
+        select-pane -t 0 -P "fg=#000000,bg=#000000"
+        resize-pane -t 0 -x 50
+        select-pane -t 1
+        set-hook -w after-split-window "run-shell -C 'source-file #{@noneckpain_dir}/scripts/tmux_zen'"
+        set-hook -w pane-exited "run-shell -C 'source-file #{@noneckpain_dir}/scripts/tmux_zen'"
+        set-option -w @noneckpain_enabled "true"
+    %elif #{==:#{hook},pane-exited}
+        %if #{==:#{window_panes},1}
+            %if #{==:#{pane_current_command},''}
+                kill-pane -t0
+            %endif
+        %elif #{==:#{window_panes},2}
+            select-pane -t 0 -P "fg=#000000,bg=#000000"
+            resize-pane -t 0 -x 50
+            select-pane -t 1
+        %elif #{==:#{window_panes},3}
+            resize-pane -t 1 -x 50%
+        %endif
+    %elif #{==:#{hook},after-split-window}
+        resize-pane -t 0 -x 0
+        %if #{==:#{window_panes},3}
+            resize-pane -t 1 -x 50%
+        %elif #{==:#{window_panes},4}
+            resize-pane -t 1 -x 33%
+            resize-pane -t 2 -x 33%
+        %endif
+    %endif
+%endif
