@@ -10,11 +10,14 @@ command line.
 - `prefix + z` - toggle noneckpain in current window
 - `prefix + Z` - toggle noneckpain in current session
 
+Enabling it in current session will not alter existing windows but the current
+and newly created ones.
+
 ### Installation with [Tmux Plugin Manager](https://github.com/tmux-plugins/tpm) (recommended)
 
 Add plugin to the list of TPM plugins in `.tmux.conf`:
 
-    set -g @plugin 'tmux-plugins/tmux-noneckpain'
+    set -g @plugin 'mkonig/tmux-noneckpain'
 
 Hit `prefix + I` to fetch the plugin and source it. You should now be able to
 use the plugin.
