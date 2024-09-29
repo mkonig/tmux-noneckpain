@@ -4,6 +4,7 @@ change_level="$1"
 
 noneckpain_enabled=$(tmux show-option -wqv @noneckpain_enabled)
 noneckpain_global_enabled=$(tmux show-option -gv @noneckpain_global_enabled)
+noneckpain_pane_color=$(tmux show-option -gv @noneckpain_pane_color)
 scripts_dir="$(tmux show-option -gv @noneckpain_dir)/scripts"
 
 function local_hooks() {
@@ -14,8 +15,8 @@ function local_hooks() {
         options="-wu"
     fi
 
-    tmux set-hook ${options} after-split-window "source-file ${scripts_dir}/tmux_zen"
-    tmux set-hook ${options} pane-exited "source-file ${scripts_dir}/tmux_zen"
+    tmux set-hook ${options} after-split-window "source-file ${scripts_dir}/noneckpain.conf"
+    tmux set-hook ${options} pane-exited "source-file ${scripts_dir}/noneckpain.conf"
 }
 
 function global_hooks() {
@@ -26,12 +27,12 @@ function global_hooks() {
         options="-gu"
     fi
 
-    tmux set-hook ${options} after-new-window "source-file ${scripts_dir}/tmux_zen"
+    tmux set-hook ${options} after-new-window "source-file ${scripts_dir}/noneckpain.conf"
 }
 
 function add_side_pane() {
     tmux split-window -h -b ''
-    tmux select-pane -t 0 -P "fg=#000000,bg=#000000"
+    tmux select-pane -t 0 -P "fg=${noneckpain_pane_color},bg=${noneckpain_pane_color}"
     tmux resize-pane -t 0 -x 50
     tmux select-pane -t 1
 }

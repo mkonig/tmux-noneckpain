@@ -21,3 +21,9 @@ Add plugin to the list of TPM plugins in `.tmux.conf`:
 
 Hit `prefix + I` to fetch the plugin and source it. You should now be able to
 use the plugin.
+
+### Configuration
+
+The color of the pane can be changed with:
+
+    set -g @noneckpain_pane_color "#000000"
